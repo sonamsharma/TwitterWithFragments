@@ -19,6 +19,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class TimelineActivity extends Activity {
 
+	long maxTweetId = Integer.MAX_VALUE;
 	private TwitterClient client;
 	private ArrayList<Tweet> tweets;
 	private ArrayAdapter<Tweet> aTweets;
@@ -31,7 +32,7 @@ public class TimelineActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_timeline);
 		client = TwitterApplication.getRestClient();
-		populateTimeline();
+		// populateTimeline();
 		lvtweets = (ListView) findViewById(R.id.lvTweets);
 		tweets = new ArrayList<Tweet>();
 		// aTweets = new ArrayAdapter<Tweet>(this,
@@ -39,22 +40,35 @@ public class TimelineActivity extends Activity {
 		aTweets = new TweetArrayAdapter(this, tweets);
 		lvtweets.setAdapter(aTweets);
 
-		/*
-		 * lvtweets.setOnScrollListener(new EndlessScrollListener() {
-		 * 
-		 * @Override public void onLoadMore(int page, int totalItemsCount) { //
-		 * Triggered only when new data needs to be appended to the list // Add
-		 * whatever code is needed to append new items to your // AdapterView //
-		 * customLoadMoreDataFromApi(page);
-		 * customLoadMoreDataFromApi(totalItemsCount); } });
-		 */
+		populateTimeline(1, -1);
+		lvtweets.setOnScrollListener(new EndlessScrollListener() {
+
+			@Override
+			public void onLoadMore(int page, int totalItemsCount) {
+				// Triggered only when new data needs to be appended to the list
+				// Add whatever code is needed to append new items to your //
+				// AdapterView //
+				customLoadMoreDataFromApi(page);
+				// customLoadMoreDataFromApi(totalItemsCount);
+			}
+		});
+
 	}
 
-	public void populateTimeline() {
+	protected void customLoadMoreDataFromApi(int page) {
+		// TODO Auto-generated method stub
+		populateTimeline(1, maxTweetId);
+	}
+
+	public void populateTimeline(long since_id, long max_id) {
 		client.getHomeTimeline(new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONArray json) {
-				aTweets.addAll(Tweet.fromJSONArray(json));
+				ArrayList<Tweet> tweets = Tweet.fromJSONArray(json);
+				// setMaxId(Tweet.fromJSONArray(json));
+				setMaxId(tweets);
+				aTweets.addAll(tweets);
+				// aTweets.addAll(Tweet.fromJSONArray(json));
 			}
 
 			@Override
@@ -63,7 +77,17 @@ public class TimelineActivity extends Activity {
 				Log.d("debug", e.toString());
 				Log.d("debug", s.toString());
 			}
-		});
+		}, since_id, max_id);
+	}
+
+	protected void setMaxId(ArrayList<Tweet> fromJSONArray) {
+		for (Tweet tweet : fromJSONArray) {
+			long currentTweetId = tweet.getUid();
+			if (currentTweetId < maxTweetId) {
+				maxTweetId = currentTweetId - 1;
+			}
+		}
+
 	}
 
 	public void onComposeAction(MenuItem mi) {

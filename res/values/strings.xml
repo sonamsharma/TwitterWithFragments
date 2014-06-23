@@ -13,5 +13,6 @@
     <string name="title_activity_compose">Compose</string>
     <string name="action_tweet">Tweet</string>
     <string name="tweet_btn">Tweet</string>
+    <string name="tvlabel_screenName">\@screenname</string>
 
 </resources>

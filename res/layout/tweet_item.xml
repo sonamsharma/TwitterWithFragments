@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+     >
 
     <ImageView
         android:id="@+id/ivProfileImage"
@@ -10,7 +11,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/ic_launcher" 
-        android:contentDescription="user's profile image"/>
+        android:contentDescription="user's profile image"
+        android:paddingTop="10dp"
+        />
 
     <TextView
         android:id="@+id/tvUserName"
@@ -18,15 +21,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ivProfileImage"
-        android:text="@string/foo_label" />
-
-    <TextView
-        android:id="@+id/tvBody"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvUserName"
-        android:layout_below="@+id/tvUserName"
-        android:text="@string/body_label" />
+        android:text="@string/foo_label"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:paddingTop="10dp"
+  		/>
 
     <TextView
         android:id="@+id/tvTime"
@@ -34,6 +33,34 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="@string/tvTime_label" />
+        android:text="@string/tvTime_label"
+        android:textColor="#808080"
+        android:textSize="12sp"
+        android:paddingTop="10dp"
+  	 	/>
+
+    <TextView
+        android:id="@+id/tvTimeScreenName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tvUserName"
+        android:paddingTop="10dp"
+        android:text="@string/tvlabel_screenName"
+        android:textColor="#D3D3D3"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvUserName"
+        android:layout_below="@+id/tvUserName"
+        android:text="@string/body_label"
+        android:autoLink="all"
+        android:linksClickable="true"
+        android:textSize="12sp"
+        android:paddingTop="8dp"
+  		 />
 
 </RelativeLayout>
