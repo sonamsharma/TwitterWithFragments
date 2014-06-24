@@ -10,9 +10,13 @@
     <string name="foo_label">\@foo</string>
     <string name="body_label">This is the tweet body</string>
     <string name="tvTime_label">Time</string>
-    <string name="title_activity_compose">Compose</string>
+    <string name="title_activity_compose"></string>
     <string name="action_tweet">Tweet</string>
     <string name="tweet_btn">Tweet</string>
     <string name="tvlabel_screenName">\@screenname</string>
+    <string name="tvmyname_label">myname</string>
+    <string name="tvscreenName_label">ScreenName</string>
+    <string name="iv_contentDisccription">Profile Image of the user</string>
+    <string name="et_hint_tweet">"What's Happenning "</string>
 
 </resources>

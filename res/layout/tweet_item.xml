@@ -10,10 +10,9 @@
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:src="@drawable/ic_launcher" 
-        android:contentDescription="user's profile image"
+        android:contentDescription="@string/iv_contentDisccription"
         android:paddingTop="10dp"
-        />
+        android:src="@drawable/ic_launcher" />
 
     <TextView
         android:id="@+id/tvUserName"

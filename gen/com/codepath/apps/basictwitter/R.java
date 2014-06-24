@@ -23,22 +23,23 @@ public final class R {
     public static final class drawable {
         public static final int ic_compose_tweet=0x7f020000;
         public static final int ic_launcher=0x7f020001;
+        public static final int twitter_icon=0x7f020002;
     }
     public static final class id {
         public static final int action_settings=0x7f08000c;
         public static final int action_tweet=0x7f08000b;
-        public static final int btn_Post=0x7f080004;
         public static final int et_tweetText=0x7f080003;
+        public static final int iTweetLength=0x7f08000a;
         public static final int ivMyProfileImage=0x7f080000;
-        public static final int ivProfileImage=0x7f080006;
-        public static final int lvTweets=0x7f080005;
+        public static final int ivProfileImage=0x7f080005;
+        public static final int lvTweets=0x7f080004;
         public static final int miCompose=0x7f08000d;
-        public static final int tvBody=0x7f08000a;
+        public static final int tvBody=0x7f080009;
         public static final int tvMyName=0x7f080001;
         public static final int tvScreenName=0x7f080002;
-        public static final int tvTime=0x7f080008;
-        public static final int tvTimeScreenName=0x7f080009;
-        public static final int tvUserName=0x7f080007;
+        public static final int tvTime=0x7f080007;
+        public static final int tvTimeScreenName=0x7f080008;
+        public static final int tvUserName=0x7f080006;
     }
     public static final class layout {
         public static final int activity_compose=0x7f030000;
@@ -57,14 +58,18 @@ public final class R {
         public static final int action_tweet=0x7f05000a;
         public static final int app_name=0x7f050000;
         public static final int body_label=0x7f050007;
+        public static final int et_hint_tweet=0x7f050010;
         public static final int foo_label=0x7f050006;
         public static final int hello_world=0x7f050002;
+        public static final int iv_contentDisccription=0x7f05000f;
         public static final int login_label=0x7f050004;
         public static final int title_activity_compose=0x7f050009;
         public static final int title_activity_photos=0x7f050003;
         public static final int title_activity_timeline=0x7f050005;
         public static final int tvTime_label=0x7f050008;
         public static final int tvlabel_screenName=0x7f05000c;
+        public static final int tvmyname_label=0x7f05000d;
+        public static final int tvscreenName_label=0x7f05000e;
         public static final int tweet_btn=0x7f05000b;
     }
     public static final class style {
