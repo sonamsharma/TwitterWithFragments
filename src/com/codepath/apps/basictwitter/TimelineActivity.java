@@ -3,6 +3,7 @@ package com.codepath.apps.basictwitter;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.codepath.apps.basictwitter.models.Tweet;
+import com.codepath.apps.basictwitter.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class TimelineActivity extends Activity {
@@ -26,6 +28,7 @@ public class TimelineActivity extends Activity {
 	private ListView lvtweets;
 	private final int REQUEST_CODE = 20;
 	private Tweet editTweet;
+	User user;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +38,10 @@ public class TimelineActivity extends Activity {
 		// populateTimeline();
 		lvtweets = (ListView) findViewById(R.id.lvTweets);
 		tweets = new ArrayList<Tweet>();
-		// aTweets = new ArrayAdapter<Tweet>(this,
-		// android.R.layout.simple_list_item_1, tweets);
+
 		aTweets = new TweetArrayAdapter(this, tweets);
 		lvtweets.setAdapter(aTweets);
-
+		getCurrentUser();
 		populateTimeline(1, -1);
 		lvtweets.setOnScrollListener(new EndlessScrollListener() {
 
@@ -55,6 +57,24 @@ public class TimelineActivity extends Activity {
 
 	}
 
+	private void getCurrentUser() {
+		// TODO Auto-generated method stub
+		client.getCurrentUser(new JsonHttpResponseHandler() {
+			@Override
+			public void onSuccess(JSONObject json) {
+				// TODO Auto-generated method stub
+				Log.d("debug", json.toString());
+				user = User.fromJSON(json);
+			}
+
+			@Override
+			public void onFailure(Throwable e, String s) {
+				// TODO Auto-generated method stub
+				Log.d("debug", e.toString());
+			}
+		});
+	}
+
 	protected void customLoadMoreDataFromApi(int page) {
 		// TODO Auto-generated method stub
 		populateTimeline(1, maxTweetId);
@@ -65,10 +85,8 @@ public class TimelineActivity extends Activity {
 			@Override
 			public void onSuccess(JSONArray json) {
 				ArrayList<Tweet> tweets = Tweet.fromJSONArray(json);
-				// setMaxId(Tweet.fromJSONArray(json));
 				setMaxId(tweets);
 				aTweets.addAll(tweets);
-				// aTweets.addAll(Tweet.fromJSONArray(json));
 			}
 
 			@Override
@@ -93,6 +111,9 @@ public class TimelineActivity extends Activity {
 	public void onComposeAction(MenuItem mi) {
 		Intent i = new Intent(this, ComposeActivity.class);
 		i.putExtra("tweet", tweets);
+		i.putExtra("user_profileImage_URL", user.getProfileImageUrl());
+		i.putExtra("user_name", user.getName());
+		i.putExtra("user_screenName", user.getScreenName());
 		startActivityForResult(i, REQUEST_CODE);
 
 		Toast.makeText(this, "ready to compose", Toast.LENGTH_LONG).show();

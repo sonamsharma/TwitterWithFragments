@@ -22,15 +22,17 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/ivMyProfileImage"
         android:layout_toRightOf="@+id/ivMyProfileImage"
-        android:text="TextView" />
+        android:text="TextView" 
+        android:layout_marginLeft="5dp"/>
 
     <TextView
         android:id="@+id/tvScreenName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvMyName"
+        android:layout_toRightOf="@+id/ivMyProfileImage"
         android:layout_below="@+id/tvMyName"
-        android:text="TextView" />
+        android:text="TextView"
+        android:layout_marginLeft="5dp" />
 
     <EditText
         android:id="@+id/et_tweetText"
@@ -39,7 +41,9 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/ivMyProfileImage"
         android:layout_marginTop="36dp"
-        android:ems="10" >
+        android:inputType="textMultiLine"
+        android:autoLink="all"
+        android:linksClickable="true" >
 
         <requestFocus />
     </EditText>

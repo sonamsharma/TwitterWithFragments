@@ -9,36 +9,50 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.apps.basictwitter.models.Tweet;
 import com.codepath.apps.basictwitter.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ComposeActivity extends Activity {
 	String tweetText;
+	String currentuser_profileImageUrl;
+	String currentUserName;
+	String currentUserScreen_Name;
 	EditText etText;
+	ImageView ivMyProfileImage;
+	TextView tvMyName;
+	TextView tvScreenName;
 	User meUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_compose);
+		setupViews();
+
+		currentuser_profileImageUrl = getIntent().getStringExtra(
+				"user_profileImage_URL");
+		currentUserName = getIntent().getStringExtra("user_name");
+		currentUserScreen_Name = getIntent().getStringExtra("user_screenName");
+
+		ivMyProfileImage.setImageResource(android.R.color.transparent);
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.displayImage(currentuser_profileImageUrl, ivMyProfileImage);
+		tvMyName.setText(currentUserName);
+		tvScreenName.setText("@" + currentUserScreen_Name);
+
+	}
+
+	public void setupViews() {
 		etText = (EditText) findViewById(R.id.et_tweetText);
-		/*
-		 * TwitterApplication.getRestClient().getUser( new
-		 * JsonHttpResponseHandler() {
-		 * 
-		 * @Override public void onSuccess(JSONObject jsonObject) { meUser =
-		 * User.fromJSON(jsonObject); ImageLoader.getInstance().displayImage(
-		 * meUser.getProfileImageUrl(), R.id.ivMyProfileImage);
-		 * runOnUiThread(new Runnable() {
-		 * 
-		 * @Override public void run() { View v = getRoot();
-		 * setupTextviewContents(v, R.id.tvMyName, meUser.getName());
-		 * setupTextviewContents( v, R.id.tvScreenName, String.format("@%s",
-		 * meUser.getScreenName(), "@")); } }); } });
-		 */
+		ivMyProfileImage = (ImageView) findViewById(R.id.ivMyProfileImage);
+		tvMyName = (TextView) findViewById(R.id.tvMyName);
+		tvScreenName = (TextView) findViewById(R.id.tvScreenName);
 	}
 
 	public void onClickTweet(View v) {
