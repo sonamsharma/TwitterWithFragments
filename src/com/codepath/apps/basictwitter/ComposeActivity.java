@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,13 +30,41 @@ public class ComposeActivity extends Activity {
 	TextView tvMyName;
 	TextView tvScreenName;
 	User meUser;
+	private Menu menu;
+	private MenuItem iTweetLength;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_compose);
 		setupViews();
+		getUserInfo();
+		etText.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void afterTextChanged(Editable s) {
 
+				int letterCount = etText.getText().length();
+				int letterRemaining = 140 - letterCount;
+				MenuItem iTweetLength = menu.findItem(R.id.iTweetLength);
+				iTweetLength.setTitle(String.valueOf(letterRemaining));
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+			}
+		});
+
+	}
+
+	private void getUserInfo() {
+		// Get the profile image, user name and screen name
 		currentuser_profileImageUrl = getIntent().getStringExtra(
 				"user_profileImage_URL");
 		currentUserName = getIntent().getStringExtra("user_name");
@@ -45,7 +75,6 @@ public class ComposeActivity extends Activity {
 		imageLoader.displayImage(currentuser_profileImageUrl, ivMyProfileImage);
 		tvMyName.setText(currentUserName);
 		tvScreenName.setText("@" + currentUserScreen_Name);
-
 	}
 
 	public void setupViews() {
@@ -86,6 +115,7 @@ public class ComposeActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.compose, menu);
+		this.menu = menu;
 		return true;
 	}
 
