@@ -1,5 +1,7 @@
 The following user stories completed by me:
-hOURS SPEND : 30hours
+
+Hours Spend: 30hours
+
 User can sign in to Twitter using OAuth login
 User can view the tweets from their home timeline
 User should be able to see the username, name, body and timestamp for each tweet
