@@ -24,6 +24,8 @@ User is taken back to home timeline with new tweet visible in timeline
 
 Optional: User can see a counter with total number of characters left for tweet
 
+Advanced: Improve the user interface and theme the app to feel "twitter branded"
+
 
 ![twitterbasicappwalkthrough](https://cloud.githubusercontent.com/assets/4516012/3381463/2ce4398c-fc1f-11e3-9025-61806d242145.gif)
 
