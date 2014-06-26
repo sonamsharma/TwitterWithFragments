@@ -2,7 +2,8 @@
 
    <item android:id="@+id/iTweetLength"
           android:title="140"
-          android:showAsAction="always" />
+          android:showAsAction="always"
+          android:actionLayout="@layout/action_view_textview"  />
     
     <item
         android:id="@+id/action_tweet"

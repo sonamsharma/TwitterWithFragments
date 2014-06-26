@@ -4,12 +4,14 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,8 +47,15 @@ public class ComposeActivity extends Activity {
 
 				int letterCount = etText.getText().length();
 				int letterRemaining = 140 - letterCount;
-				MenuItem iTweetLength = menu.findItem(R.id.iTweetLength);
-				iTweetLength.setTitle(String.valueOf(letterRemaining));
+				iTweetLength = menu.findItem(R.id.iTweetLength);
+				View v = iTweetLength.getActionView();
+				TextView tv = (TextView) v.findViewById(R.id.tvLength);
+				tv.setText(String.valueOf(letterRemaining));
+				if (letterRemaining >= 0) {
+					tv.setTextColor(Color.parseColor("#FFFFFF"));
+				} else {
+					tv.setTextColor(Color.parseColor("#8B0000"));
+				}
 
 			}
 
