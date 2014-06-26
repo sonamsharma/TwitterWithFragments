@@ -21,7 +21,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class TimelineActivity extends Activity {
 
-	long maxTweetId = Integer.MAX_VALUE;
+	long maxTweetId = Long.MAX_VALUE;
 	private TwitterClient client;
 	private ArrayList<Tweet> tweets;
 	private ArrayAdapter<Tweet> aTweets;
@@ -38,9 +38,10 @@ public class TimelineActivity extends Activity {
 		// populateTimeline();
 		lvtweets = (ListView) findViewById(R.id.lvTweets);
 		tweets = new ArrayList<Tweet>();
-
+		tweets.clear();
 		aTweets = new TweetArrayAdapter(this, tweets);
 		lvtweets.setAdapter(aTweets);
+		aTweets.clear();
 		getCurrentUser();
 		populateTimeline(1, -1);
 		lvtweets.setOnScrollListener(new EndlessScrollListener() {
@@ -81,21 +82,23 @@ public class TimelineActivity extends Activity {
 	}
 
 	public void populateTimeline(long since_id, long max_id) {
-		client.getHomeTimeline(new JsonHttpResponseHandler() {
-			@Override
-			public void onSuccess(JSONArray json) {
-				ArrayList<Tweet> tweets = Tweet.fromJSONArray(json);
-				setMaxId(tweets);
-				aTweets.addAll(tweets);
-			}
+		if (client != null) {
+			client.getHomeTimeline(new JsonHttpResponseHandler() {
+				@Override
+				public void onSuccess(JSONArray json) {
+					ArrayList<Tweet> tweets = Tweet.fromJSONArray(json);
+					setMaxId(tweets);
+					aTweets.addAll(tweets);
+				}
 
-			@Override
-			public void onFailure(Throwable e, String s) {
-				// TODO Auto-generated method stub
-				Log.d("debug", e.toString());
-				Log.d("debug", s.toString());
-			}
-		}, since_id, max_id);
+				@Override
+				public void onFailure(Throwable e, String s) {
+					// TODO Auto-generated method stub
+					Log.d("debug", e.toString());
+					Log.d("debug", s.toString());
+				}
+			}, since_id, max_id);
+		}
 	}
 
 	protected void setMaxId(ArrayList<Tweet> fromJSONArray) {
