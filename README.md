@@ -27,6 +27,6 @@ Optional: User can see a counter with total number of characters left for tweet
 Advanced: Improve the user interface and theme the app to feel "twitter branded"
 
 
-![twitterbasicappwalkthrough](https://cloud.githubusercontent.com/assets/4516012/3381463/2ce4398c-fc1f-11e3-9025-61806d242145.gif)
+![twitterbasicwalkthrough](https://cloud.githubusercontent.com/assets/4516012/3402442/3bac3eb8-fd5c-11e3-80fd-3b3d1a69f336.gif)
 
 
