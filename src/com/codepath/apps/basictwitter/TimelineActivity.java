@@ -1,31 +1,19 @@
 package com.codepath.apps.basictwitter;
 
-import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import android.app.Activity;
-import android.content.Intent;
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.support.v4.app.FragmentActivity;
 
+import com.codepath.apps.basictwitter.fragments.HomeTimelineFragment;
+import com.codepath.apps.basictwitter.fragments.MentionsTimelineFragment;
+import com.codepath.apps.basictwitter.listeners.FragmentTabListener;
 import com.codepath.apps.basictwitter.models.Tweet;
 import com.codepath.apps.basictwitter.models.User;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
-public class TimelineActivity extends Activity {
+public class TimelineActivity extends FragmentActivity {
 
 	long maxTweetId = Long.MAX_VALUE;
-	private TwitterClient client;
-	private ArrayList<Tweet> tweets;
-	private ArrayAdapter<Tweet> aTweets;
-	private ListView lvtweets;
 	private final int REQUEST_CODE = 20;
 	private Tweet editTweet;
 	User user;
@@ -34,110 +22,89 @@ public class TimelineActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_timeline);
-		client = TwitterApplication.getRestClient();
-		// populateTimeline();
-		lvtweets = (ListView) findViewById(R.id.lvTweets);
-		tweets = new ArrayList<Tweet>();
-		tweets.clear();
-		aTweets = new TweetArrayAdapter(this, tweets);
-		lvtweets.setAdapter(aTweets);
-		aTweets.clear();
-		getCurrentUser();
-		populateTimeline(1, -1);
-		lvtweets.setOnScrollListener(new EndlessScrollListener() {
+		setupTabs();
 
-			@Override
-			public void onLoadMore(int page, int totalItemsCount) {
-				// Triggered only when new data needs to be appended to the list
-				// Add whatever code is needed to append new items to your //
-				// AdapterView //
-				customLoadMoreDataFromApi(page);
-				// customLoadMoreDataFromApi(totalItemsCount);
-			}
-		});
-
+		/*
+		 * getCurrentUser(); // populateTimeline(1, -1);
+		 * lvtweets.setOnScrollListener(new EndlessScrollListener() {
+		 * 
+		 * @Override public void onLoadMore(int page, int totalItemsCount) { //
+		 * Triggered only when new data needs to be appended to the list // Add
+		 * whatever code is needed to append new items to your // // AdapterView
+		 * // customLoadMoreDataFromApi(page); //
+		 * customLoadMoreDataFromApi(totalItemsCount); } });
+		 * 
+		 * }
+		 * 
+		 * private void getCurrentUser() { // TODO Auto-generated method stub
+		 * client.getCurrentUser(new JsonHttpResponseHandler() {
+		 * 
+		 * @Override public void onSuccess(JSONObject json) { // TODO
+		 * Auto-generated method stub Log.d("debug", json.toString()); user =
+		 * User.fromJSON(json); }
+		 * 
+		 * @Override public void onFailure(Throwable e, String s) { // TODO
+		 * Auto-generated method stub Log.d("debug", e.toString()); } }); }
+		 * 
+		 * protected void customLoadMoreDataFromApi(int page) { // TODO
+		 * Auto-generated method stub populateTimeline(1, maxTweetId); }
+		 * 
+		 * protected void setMaxId(ArrayList<Tweet> fromJSONArray) { for (Tweet
+		 * tweet : fromJSONArray) { long currentTweetId = tweet.getUid(); if
+		 * (currentTweetId < maxTweetId) { maxTweetId = currentTweetId - 1; } }
+		 * 
+		 * }
+		 * 
+		 * public void onComposeAction(MenuItem mi) { Intent i = new
+		 * Intent(this, ComposeActivity.class); i.putExtra("tweet", tweets);
+		 * i.putExtra("user_profileImage_URL", user.getProfileImageUrl());
+		 * i.putExtra("user_name", user.getName());
+		 * i.putExtra("user_screenName", user.getScreenName());
+		 * startActivityForResult(i, REQUEST_CODE);
+		 * 
+		 * Toast.makeText(this, "ready to compose", Toast.LENGTH_LONG).show(); }
+		 * 
+		 * protected void onActivityResult(int requestCode, int resultCode,
+		 * Intent data) { if (resultCode == RESULT_OK) { if (requestCode == 20)
+		 * { editTweet = (Tweet) data.getSerializableExtra("bodyforTweet");
+		 * aTweets.insert(editTweet, 0); aTweets.notifyDataSetChanged(); }
+		 * super.onActivityResult(requestCode, resultCode, data); } }
+		 * 
+		 * @Override public boolean onCreateOptionsMenu(Menu menu) { // Inflate
+		 * the menu; this adds items to the action bar if it is present.
+		 * getMenuInflater().inflate(R.menu.timeline, menu); return true;
+		 */
 	}
 
-	private void getCurrentUser() {
-		// TODO Auto-generated method stub
-		client.getCurrentUser(new JsonHttpResponseHandler() {
-			@Override
-			public void onSuccess(JSONObject json) {
-				// TODO Auto-generated method stub
-				Log.d("debug", json.toString());
-				user = User.fromJSON(json);
-			}
+	private void setupTabs() {
+		ActionBar actionBar = getActionBar();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		actionBar.setDisplayShowTitleEnabled(true);
 
-			@Override
-			public void onFailure(Throwable e, String s) {
-				// TODO Auto-generated method stub
-				Log.d("debug", e.toString());
-			}
-		});
-	}
+		Tab tab1 = actionBar
+				.newTab()
+				.setText("Home")
+				.setIcon(R.drawable.ic_home)
+				.setTag("HomeTimelineFragment")
+				.setTabListener(
+						new FragmentTabListener<HomeTimelineFragment>(
+								R.id.flContainer, this, "home",
+								HomeTimelineFragment.class));
 
-	protected void customLoadMoreDataFromApi(int page) {
-		// TODO Auto-generated method stub
-		populateTimeline(1, maxTweetId);
-	}
+		actionBar.addTab(tab1);
+		actionBar.selectTab(tab1);
 
-	public void populateTimeline(long since_id, long max_id) {
-		if (client != null) {
-			client.getHomeTimeline(new JsonHttpResponseHandler() {
-				@Override
-				public void onSuccess(JSONArray json) {
-					ArrayList<Tweet> tweets = Tweet.fromJSONArray(json);
-					setMaxId(tweets);
-					aTweets.addAll(tweets);
-				}
+		Tab tab2 = actionBar
+				.newTab()
+				.setText("Mentions")
+				.setIcon(R.drawable.ic_mentions)
+				.setTag("MentionsTimelineFragment")
+				.setTabListener(
+						new FragmentTabListener<MentionsTimelineFragment>(
+								R.id.flContainer, this, "mentions",
+								MentionsTimelineFragment.class));
 
-				@Override
-				public void onFailure(Throwable e, String s) {
-					// TODO Auto-generated method stub
-					Log.d("debug", e.toString());
-					Log.d("debug", s.toString());
-				}
-			}, since_id, max_id);
-		}
-	}
-
-	protected void setMaxId(ArrayList<Tweet> fromJSONArray) {
-		for (Tweet tweet : fromJSONArray) {
-			long currentTweetId = tweet.getUid();
-			if (currentTweetId < maxTweetId) {
-				maxTweetId = currentTweetId - 1;
-			}
-		}
-
-	}
-
-	public void onComposeAction(MenuItem mi) {
-		Intent i = new Intent(this, ComposeActivity.class);
-		i.putExtra("tweet", tweets);
-		i.putExtra("user_profileImage_URL", user.getProfileImageUrl());
-		i.putExtra("user_name", user.getName());
-		i.putExtra("user_screenName", user.getScreenName());
-		startActivityForResult(i, REQUEST_CODE);
-
-		Toast.makeText(this, "ready to compose", Toast.LENGTH_LONG).show();
-	}
-
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == RESULT_OK) {
-			if (requestCode == 20) {
-				editTweet = (Tweet) data.getSerializableExtra("bodyforTweet");
-				aTweets.insert(editTweet, 0);
-				aTweets.notifyDataSetChanged();
-			}
-			super.onActivityResult(requestCode, resultCode, data);
-		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.timeline, menu);
-		return true;
+		actionBar.addTab(tab2);
 	}
 
 }
