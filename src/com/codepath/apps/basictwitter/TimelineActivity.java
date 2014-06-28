@@ -2,8 +2,11 @@ package com.codepath.apps.basictwitter;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.codepath.apps.basictwitter.fragments.HomeTimelineFragment;
 import com.codepath.apps.basictwitter.fragments.MentionsTimelineFragment;
@@ -69,10 +72,6 @@ public class TimelineActivity extends FragmentActivity {
 		 * { editTweet = (Tweet) data.getSerializableExtra("bodyforTweet");
 		 * aTweets.insert(editTweet, 0); aTweets.notifyDataSetChanged(); }
 		 * super.onActivityResult(requestCode, resultCode, data); } }
-		 * 
-		 * @Override public boolean onCreateOptionsMenu(Menu menu) { // Inflate
-		 * the menu; this adds items to the action bar if it is present.
-		 * getMenuInflater().inflate(R.menu.timeline, menu); return true;
 		 */
 	}
 
@@ -81,7 +80,7 @@ public class TimelineActivity extends FragmentActivity {
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setDisplayShowTitleEnabled(true);
 
-		Tab tab1 = actionBar
+		Tab tabHome = actionBar
 				.newTab()
 				.setText("Home")
 				.setIcon(R.drawable.ic_home)
@@ -91,10 +90,10 @@ public class TimelineActivity extends FragmentActivity {
 								R.id.flContainer, this, "home",
 								HomeTimelineFragment.class));
 
-		actionBar.addTab(tab1);
-		actionBar.selectTab(tab1);
+		actionBar.addTab(tabHome);
+		actionBar.selectTab(tabHome);
 
-		Tab tab2 = actionBar
+		Tab tabMentions = actionBar
 				.newTab()
 				.setText("Mentions")
 				.setIcon(R.drawable.ic_mentions)
@@ -104,7 +103,25 @@ public class TimelineActivity extends FragmentActivity {
 								R.id.flContainer, this, "mentions",
 								MentionsTimelineFragment.class));
 
-		actionBar.addTab(tab2);
+		actionBar.addTab(tabMentions);
+	}
+
+	public void onProfileView(MenuItem mi) {
+		Intent i = new Intent(this, ProfileActivity.class);
+		startActivity(i);
+
+	}
+
+	public void onComposeAction(MenuItem mi) {
+		Intent i = new Intent(this, ComposeActivity.class);
+		startActivityForResult(i, REQUEST_CODE);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.timeline, menu);
+		return true;
 	}
 
 }

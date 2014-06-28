@@ -74,16 +74,26 @@ public class ComposeActivity extends Activity {
 
 	private void getUserInfo() {
 		// Get the profile image, user name and screen name
-		currentuser_profileImageUrl = getIntent().getStringExtra(
-				"user_profileImage_URL");
-		currentUserName = getIntent().getStringExtra("user_name");
-		currentUserScreen_Name = getIntent().getStringExtra("user_screenName");
+		// currentuser_profileImageUrl = getIntent().getStringExtra(
+		// "user_profileImage_URL");
+		// currentUserName = getIntent().getStringExtra("user_name");
+		// currentUserScreen_Name =
+		// getIntent().getStringExtra("user_screenName");
+		TwitterClient client = TwitterApplication.getRestClient();
+		client.getCurrentUser(new JsonHttpResponseHandler() {
+			@Override
+			public void onSuccess(JSONObject json) {
+				User u = User.fromJSON(json);
+				getActionBar().setTitle("@" + u.getScreenName());
+				ivMyProfileImage.setImageResource(android.R.color.transparent);
+				ImageLoader imageLoader = ImageLoader.getInstance();
+				imageLoader.displayImage(u.getProfileImageUrl(),
+						ivMyProfileImage);
+				tvMyName.setText(u.getName());
+				tvScreenName.setText("@" + u.getScreenName());
+			}
+		});
 
-		ivMyProfileImage.setImageResource(android.R.color.transparent);
-		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.displayImage(currentuser_profileImageUrl, ivMyProfileImage);
-		tvMyName.setText(currentUserName);
-		tvScreenName.setText("@" + currentUserScreen_Name);
 	}
 
 	public void setupViews() {

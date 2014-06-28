@@ -74,6 +74,13 @@ public class TwitterClient extends OAuthBaseClient {
 		client.get(apiUrl, null, handler);
 	}
 
+	public void getUserTimeline(AsyncHttpResponseHandler handler) {
+		// TODO Auto-generated method stub
+		String apiUrl = getApiUrl("statuses/user_timeline.json");
+		client.get(apiUrl, null, handler);
+
+	}
+
 	public void getMentionsTimeline(AsyncHttpResponseHandler handler,
 			long since_id, long max_id) {
 		String apiUrl = getApiUrl("statuses/mentions_timeline.json");

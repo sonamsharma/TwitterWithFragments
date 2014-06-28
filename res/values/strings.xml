@@ -18,5 +18,6 @@
     <string name="tvscreenName_label">ScreenName</string>
     <string name="iv_contentDisccription">Profile Image of the user</string>
     <string name="et_hint_tweet">"What's Happenning "</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 
 </resources>
