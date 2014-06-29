@@ -21,6 +21,14 @@ public class HomeTimelineFragment extends TweetsListFragment {
 		populateTimeline(1, -1);
 	};
 
+	/*
+	 * protected void onActivityResult(int requestCode, int resultCode, Intent
+	 * data) { if (resultCode == RESULT_OK) { if (requestCode == 20) { editTweet
+	 * = (Tweet) data.getSerializableExtra("bodyforTweet");
+	 * aTweets.insert(editTweet, 0); aTweets.notifyDataSetChanged(); }
+	 * super.onActivityResult(requestCode, resultCode, data); } }
+	 */
+
 	public void populateTimeline(long since_id, long max_id) {
 		if (client != null) {
 			client.getHomeTimeline(new JsonHttpResponseHandler() {

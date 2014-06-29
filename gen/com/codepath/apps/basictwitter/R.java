@@ -29,24 +29,31 @@ public final class R {
         public static final int twitter_icon=0x7f020005;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000f;
-        public static final int action_tweet=0x7f08000e;
+        public static final int action_settings=0x7f080016;
+        public static final int action_tweet=0x7f080015;
         public static final int et_tweetText=0x7f080004;
-        public static final int flContainer=0x7f080006;
-        public static final int fragmentUserTimeline=0x7f080005;
-        public static final int iTweetLength=0x7f08000d;
+        public static final int flContainer=0x7f08000d;
+        public static final int fragmentUserTimeline=0x7f08000c;
+        public static final int iTweetLength=0x7f080014;
         public static final int ivMyProfileImage=0x7f080001;
-        public static final int ivProfileImage=0x7f080008;
-        public static final int lvTweets=0x7f080007;
-        public static final int miCompose=0x7f080010;
-        public static final int miprofile=0x7f080011;
-        public static final int tvBody=0x7f08000c;
+        public static final int ivProfileImage=0x7f08000f;
+        public static final int ivUserProfileImage=0x7f080006;
+        public static final int llCounts=0x7f080009;
+        public static final int lvTweets=0x7f08000e;
+        public static final int miCompose=0x7f080017;
+        public static final int miprofile=0x7f080018;
+        public static final int rlHeader=0x7f080005;
+        public static final int tvBody=0x7f080013;
         public static final int tvLength=0x7f080000;
         public static final int tvMyName=0x7f080002;
         public static final int tvScreenName=0x7f080003;
-        public static final int tvTime=0x7f08000a;
-        public static final int tvTimeScreenName=0x7f08000b;
-        public static final int tvUserName=0x7f080009;
+        public static final int tvTime=0x7f080011;
+        public static final int tvTimeScreenName=0x7f080012;
+        public static final int tvUserName=0x7f080010;
+        public static final int tvUserProfileFollowers=0x7f08000a;
+        public static final int tvUserProfileFollowing=0x7f08000b;
+        public static final int tvUserProfileName=0x7f080007;
+        public static final int tvUserProfileTagline=0x7f080008;
     }
     public static final class layout {
         public static final int action_view_textview=0x7f030000;
