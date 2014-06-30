@@ -109,7 +109,7 @@ public class ComposeActivity extends Activity {
 				Intent i = new Intent();
 				i.putExtra("bodyforTweet", Tweet.fromJSON(jsonObject));
 				setResult(RESULT_OK, i);
-				finish();
+				ComposeActivity.this.finish();
 			}
 
 			@Override

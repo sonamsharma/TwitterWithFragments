@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.codepath.apps.basictwitter.fragments.HomeTimelineFragment;
 import com.codepath.apps.basictwitter.fragments.MentionsTimelineFragment;
+import com.codepath.apps.basictwitter.fragments.TweetsListFragment;
 import com.codepath.apps.basictwitter.listeners.FragmentTabListener;
 import com.codepath.apps.basictwitter.models.Tweet;
 import com.codepath.apps.basictwitter.models.User;
@@ -27,52 +29,6 @@ public class TimelineActivity extends FragmentActivity {
 		setContentView(R.layout.activity_timeline);
 		setupTabs();
 
-		/*
-		 * getCurrentUser(); // populateTimeline(1, -1);
-		 * lvtweets.setOnScrollListener(new EndlessScrollListener() {
-		 * 
-		 * @Override public void onLoadMore(int page, int totalItemsCount) { //
-		 * Triggered only when new data needs to be appended to the list // Add
-		 * whatever code is needed to append new items to your // // AdapterView
-		 * // customLoadMoreDataFromApi(page); //
-		 * customLoadMoreDataFromApi(totalItemsCount); } });
-		 * 
-		 * }
-		 * 
-		 * private void getCurrentUser() { // TODO Auto-generated method stub
-		 * client.getCurrentUser(new JsonHttpResponseHandler() {
-		 * 
-		 * @Override public void onSuccess(JSONObject json) { // TODO
-		 * Auto-generated method stub Log.d("debug", json.toString()); user =
-		 * User.fromJSON(json); }
-		 * 
-		 * @Override public void onFailure(Throwable e, String s) { // TODO
-		 * Auto-generated method stub Log.d("debug", e.toString()); } }); }
-		 * 
-		 * protected void customLoadMoreDataFromApi(int page) { // TODO
-		 * Auto-generated method stub populateTimeline(1, maxTweetId); }
-		 * 
-		 * protected void setMaxId(ArrayList<Tweet> fromJSONArray) { for (Tweet
-		 * tweet : fromJSONArray) { long currentTweetId = tweet.getUid(); if
-		 * (currentTweetId < maxTweetId) { maxTweetId = currentTweetId - 1; } }
-		 * 
-		 * }
-		 * 
-		 * public void onComposeAction(MenuItem mi) { Intent i = new
-		 * Intent(this, ComposeActivity.class); i.putExtra("tweet", tweets);
-		 * i.putExtra("user_profileImage_URL", user.getProfileImageUrl());
-		 * i.putExtra("user_name", user.getName());
-		 * i.putExtra("user_screenName", user.getScreenName());
-		 * startActivityForResult(i, REQUEST_CODE);
-		 * 
-		 * Toast.makeText(this, "ready to compose", Toast.LENGTH_LONG).show(); }
-		 * 
-		 * protected void onActivityResult(int requestCode, int resultCode,
-		 * Intent data) { if (resultCode == RESULT_OK) { if (requestCode == 20)
-		 * { editTweet = (Tweet) data.getSerializableExtra("bodyforTweet");
-		 * aTweets.insert(editTweet, 0); aTweets.notifyDataSetChanged(); }
-		 * super.onActivityResult(requestCode, resultCode, data); } }
-		 */
 	}
 
 	private void setupTabs() {
@@ -109,12 +65,29 @@ public class TimelineActivity extends FragmentActivity {
 	public void onProfileView(MenuItem mi) {
 		Intent i = new Intent(this, ProfileActivity.class);
 		startActivity(i);
-
 	}
 
 	public void onComposeAction(MenuItem mi) {
 		Intent i = new Intent(this, ComposeActivity.class);
 		startActivityForResult(i, REQUEST_CODE);
+	}
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			if (requestCode == 20) {
+
+				Toast.makeText(this, "Tweeting", Toast.LENGTH_LONG).show();
+
+				Tweet newTweet = (Tweet) data
+						.getSerializableExtra("bodyforTweet");
+
+				TweetsListFragment fragmentTweetList = (TweetsListFragment) getSupportFragmentManager()
+						.findFragmentByTag("home");
+				fragmentTweetList.insertTweet(newTweet);
+				fragmentTweetList.populateTimeline(1, -1);
+
+			}
+		}
 	}
 
 	@Override
