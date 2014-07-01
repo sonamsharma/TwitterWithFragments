@@ -66,10 +66,12 @@ public final class R {
     }
     public static final class menu {
         public static final int compose=0x7f070000;
-        public static final int login=0x7f070001;
-        public static final int photos=0x7f070002;
-        public static final int profile=0x7f070003;
-        public static final int timeline=0x7f070004;
+        public static final int image_display=0x7f070001;
+        public static final int login=0x7f070002;
+        public static final int photos=0x7f070003;
+        public static final int profile=0x7f070004;
+        public static final int timeline=0x7f070005;
+        public static final int user_icon_click_profile=0x7f070006;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -82,9 +84,11 @@ public final class R {
         public static final int iv_contentDisccription=0x7f05000f;
         public static final int login_label=0x7f050004;
         public static final int title_activity_compose=0x7f050009;
+        public static final int title_activity_image_display=0x7f050012;
         public static final int title_activity_photos=0x7f050003;
         public static final int title_activity_profile=0x7f050011;
         public static final int title_activity_timeline=0x7f050005;
+        public static final int title_activity_user_icon_click_profile=0x7f050013;
         public static final int tvTime_label=0x7f050008;
         public static final int tvlabel_screenName=0x7f05000c;
         public static final int tvmyname_label=0x7f05000d;

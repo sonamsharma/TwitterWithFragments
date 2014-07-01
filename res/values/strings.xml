@@ -19,5 +19,7 @@
     <string name="iv_contentDisccription">Profile Image of the user</string>
     <string name="et_hint_tweet">"What's Happenning "</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_image_display">ImageDisplayActivity</string>
+    <string name="title_activity_user_icon_click_profile">UserIconClickProfileActivity</string>
 
 </resources>

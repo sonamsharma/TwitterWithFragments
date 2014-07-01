@@ -20,7 +20,6 @@ public class TimelineActivity extends FragmentActivity {
 
 	long maxTweetId = Long.MAX_VALUE;
 	private final int REQUEST_CODE = 20;
-	private Tweet editTweet;
 	User user;
 
 	@Override

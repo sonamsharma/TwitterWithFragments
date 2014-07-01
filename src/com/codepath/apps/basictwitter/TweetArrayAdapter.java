@@ -6,15 +6,18 @@ import java.util.List;
 import java.util.Locale;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.apps.basictwitter.models.Tweet;
+import com.codepath.apps.basictwitter.models.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
@@ -35,8 +38,9 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 			v = convertView;
 		}
 		// Find the views within template
-		ImageView ivProfileImage = (ImageView) v
+		final ImageView ivProfileImage = (ImageView) v
 				.findViewById(R.id.ivProfileImage);
+		ivProfileImage.setTag(tweet.getUser());
 		TextView tvUserName = (TextView) v.findViewById(R.id.tvUserName);
 		TextView tvName = (TextView) v.findViewById(R.id.tvTimeScreenName);
 		TextView tvBody = (TextView) v.findViewById(R.id.tvBody);
@@ -50,6 +54,16 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 		tvBody.setText(tweet.getBody());
 		String time = tweet.getCreatedAt();
 		tvTime.setText(getRelativeTimeAgo(time));
+
+		// adding it for photo
+		ivProfileImage.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent i = new Intent(getContext(), ProfileActivity.class);
+				i.putExtra("user", (User) ivProfileImage.getTag());
+				getContext().startActivity(i);
+			}
+		});
+
 		return v;
 
 	}

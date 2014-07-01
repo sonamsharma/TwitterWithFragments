@@ -22,7 +22,6 @@ public class ProfileActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
-		loadProfileInfo();
 		User user = (User) getIntent().getSerializableExtra("user");
 		if (user != null) {
 			setupWithUser(user);
@@ -62,19 +61,6 @@ public class ProfileActivity extends FragmentActivity {
 				.getUid());
 		ft.replace(R.id.fragmentUserTimeline, fragment);
 		ft.commit();
-	}
-
-	private void loadProfileInfo() {
-		TwitterClient client = TwitterApplication.getRestClient();
-		client.getCurrentUser(new JsonHttpResponseHandler() {
-			@Override
-			public void onSuccess(JSONObject json) {
-				User u = User.fromJSON(json);
-				getActionBar().setTitle("@" + u.getScreenName());
-				populateProfileHeader(u);
-			}
-		});
-
 	}
 
 	private void populateProfileHeader(User user) {
