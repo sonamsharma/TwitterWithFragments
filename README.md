@@ -26,7 +26,20 @@ Optional: User can see a counter with total number of characters left for tweet
 
 Advanced: Improve the user interface and theme the app to feel "twitter branded"
 
+This project is made by using fragments.Completed all required user stories
 
-![twitterbasicwalkthrough](https://cloud.githubusercontent.com/assets/4516012/3402442/3bac3eb8-fd5c-11e3-80fd-3b3d1a69f336.gif)
+User can switch between Timeline and Mention views using tabs.
+User can view their home timeline tweets.
+User can view the recent mentions of their username.
+User can scroll to bottom of either of these lists and new tweets will load ("infinite scroll")
 
+User can navigate to view their own profile
+User can see picture, tagline, # of followers, # of following, and tweets on their profile.
+User can scroll to bottom of either of these lists and new tweets will load ("infinite scroll")
+
+User can click on the profile image in any tweet to see another user's profile.
+User can see picture, tagline, # of followers, # of following, and tweets of clicked user.
+Profile view should include that user's timeline
+
+![twitterwalkthrough1](https://cloud.githubusercontent.com/assets/4516012/3449319/7bf6b56e-0164-11e4-9a6d-e874da1ed2cb.gif)
 
